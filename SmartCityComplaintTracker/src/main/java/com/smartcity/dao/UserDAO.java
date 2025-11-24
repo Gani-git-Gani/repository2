@@ -46,4 +46,22 @@ public class UserDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
+    
+    public boolean isEmailExists(String email) {
+        String sql = "SELECT * FROM users WHERE email=?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+
+            return rs.next(); // email found
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

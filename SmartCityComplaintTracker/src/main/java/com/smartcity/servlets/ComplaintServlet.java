@@ -12,11 +12,14 @@ public class ComplaintServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("userId") == null) {
-            resp.sendRedirect("login.jsp");
-            return;
-        }
+    	HttpSession session = req.getSession(false);
+
+    	if (session == null || session.getAttribute("userId") == null) {
+    	    System.out.println("SESSION ERROR → No active session or missing userId");
+    	    resp.sendRedirect("login.jsp");
+    	    return;
+    	}
+
 
         int userId = (int) session.getAttribute("userId");
         String name = req.getParameter("name");
@@ -31,9 +34,11 @@ public class ComplaintServlet extends HttpServlet {
 
         ComplaintDAO dao = new ComplaintDAO();
         if (dao.submitComplaint(complaint)) {
-            resp.getWriter().println("Complaint submitted successfully!");
+            session.setAttribute("msg", "Complaint Submitted Successfully!");
         } else {
-            resp.getWriter().println("Failed to submit complaint. Try again!");
+            session.setAttribute("msg", "Failed to submit complaint. Try again!");
         }
+
+        resp.sendRedirect("submitcomplaint.jsp");
     }
 }

@@ -1,33 +1,45 @@
 package com.smartcity.servlets;
 
 import java.io.IOException;
+
 import com.smartcity.dao.UserDAO;
 import com.smartcity.model.User;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+
+    private UserDAO userDAO = new UserDAO();
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String role = "citizen";
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
 
-        User u = new User();
-        u.setName(name);
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setRole(role);
+        // Check if user exists
+        if (userDAO.isEmailExists(email)) {
+            response.sendRedirect("home.jsp?msg=User already registered, go to Login");
+            return;
+        }
 
-        UserDAO dao = new UserDAO();
-        if (dao.register(u)) {
-            resp.sendRedirect("login.jsp");
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole(role);
+
+        if (userDAO.register(user)) {
+            response.sendRedirect("login.jsp?msg=Registered Successfully!");
         } else {
-            resp.getWriter().println("<h3>Registration failed. Try again!</h3>");
+            response.sendRedirect("register.jsp?msg=Registration Failed");
         }
     }
 }

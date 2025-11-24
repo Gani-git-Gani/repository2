@@ -70,7 +70,7 @@
   <input name="password" type="password" placeholder="Password" required><br>
   <select name="role">
     <option value="citizen">Citizen</option>
-    <option value="technician">Technician</option>
+    <option value="admin">Admin</option>
   </select><br>
   <button type="submit">Register</button>
 </form>

@@ -65,6 +65,19 @@
   <input name="password" type="password" placeholder="Password" required><br>
   <button type="submit">Login</button>
 </form>
+<%
+    String msg = (String) session.getAttribute("msg");
+    if (msg != null) {
+%>
+<script>
+    alert("<%= msg %>");
+</script>
+<%
+        session.removeAttribute("msg");
+    }
+%>
 
+<br>
+    <a href="index.jsp"></a>
 </body>
 </html>

@@ -6,6 +6,6 @@
 </head>
 <body>
     <h1>Welcome, Citizen!</h1>
-    <p>Your complaints and updates will appear here.</p>
+    
 </body>
 </html>
