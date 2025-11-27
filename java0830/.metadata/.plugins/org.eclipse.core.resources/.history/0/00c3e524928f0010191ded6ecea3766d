@@ -1,0 +1,45 @@
+package Arrays;
+
+import java.util.Arrays;
+
+import javax.sound.midi.MidiChannel;
+
+//wap for binary search
+public class p21 {
+
+	public static void binarysearch(int[] a, int key)
+	{
+		int firstIndex=0;
+		int lastIndex=a.length-1;
+		int midIndex;
+		boolean flag = false;
+		while (firstIndex<=lastIndex)
+		{
+			midIndex = (firstIndex+lastIndex)/2;
+			if (a[midIndex]==key) 
+			{
+				flag=true;
+				break;
+			}
+			else if (a[midIndex]<key) 
+			{
+				firstIndex=midIndex+1;
+			}
+			else if (a[midIndex]>key)
+			{
+				lastIndex=midIndex-1;
+			}
+		}
+			if (flag) {
+				System.out.println(key+" is present in the array");
+			} else {
+				System.out.println(key+" is not present in the array");
+			}
+	}
+	public static void main(String[] args) {
+		int[] a = {40,50,10,20,25};
+		
+		binarysearch(a,50);
+		
+	}
+}

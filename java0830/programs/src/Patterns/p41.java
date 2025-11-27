@@ -1,0 +1,37 @@
+package Patterns;
+
+/*
+11111
+ 2222
+  333
+   44
+    5
+
+*/
+public class p41 {
+	public static void main(String[] args)
+	{
+		int num = 1;
+		int row=5, col=5;
+		for(int i=0;i<row;i++)
+		{
+			
+			for(int j=0;j<col;j++)
+			{
+				if (i<=j) 
+				{
+					System.out.print(num);
+					
+				}
+				else
+				{
+					System.out.print(' ');
+				}
+			}
+			System.out.println();
+
+			num++;
+		}
+	}
+
+}
